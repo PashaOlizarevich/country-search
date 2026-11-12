@@ -15,7 +15,7 @@ export function createCountryDetails(getFallbackFocus: () => HTMLElement | null)
   closeButton.type = 'button';
   closeButton.autofocus = true;
   const content = element('div', 'dialog-content');
-  header.append(title, closeButton);
+  header.append(element('span', 'dialog-label', 'О стране'), closeButton);
   dialog.append(header, content);
   let trigger: HTMLElement | null = null;
   let locked = false;
@@ -39,7 +39,7 @@ export function createCountryDetails(getFallbackFocus: () => HTMLElement | null)
   }
   function open(country: Country, source: HTMLElement): void {
     title.textContent = country.name;
-    content.replaceChildren(createFlag(country.flag));
+    content.replaceChildren(createFlag(country.flag), title);
     if (country.nativeName) content.append(element('p', 'dialog-native-name', country.nativeName));
     const fields = element('dl', 'dialog-facts');
     const currencies = country.currencies
