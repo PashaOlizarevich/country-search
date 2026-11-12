@@ -3,7 +3,10 @@ import { createFlag, displayNumber, displayText, element } from './dom.js';
 
 let nextDialogId = 0;
 
-export function createCountryDetails(getFallbackFocus: () => HTMLElement | null) {
+export function createCountryDetails(
+  getFallbackFocus: () => HTMLElement | null,
+  onOpenChange?: (open: boolean) => void,
+) {
   const listeners = new AbortController();
   const options = { signal: listeners.signal };
   const dialog = element('dialog', 'country-dialog');
@@ -28,6 +31,7 @@ export function createCountryDetails(getFallbackFocus: () => HTMLElement | null)
       document.body.style.setProperty('overflow', previousOverflow, previousPriority);
     else document.body.style.removeProperty('overflow');
     locked = false;
+    onOpenChange?.(false);
     const target = trigger?.isConnected ? trigger : getFallbackFocus();
     if (target?.isConnected) target.focus({ preventScroll: true });
     trigger = null;
@@ -78,6 +82,7 @@ export function createCountryDetails(getFallbackFocus: () => HTMLElement | null)
       previousPriority = document.body.style.getPropertyPriority('overflow');
       document.body.style.setProperty('overflow', 'hidden');
       locked = true;
+      onOpenChange?.(true);
     }
     trigger = source;
     dialog.scrollTop = 0;

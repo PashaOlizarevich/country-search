@@ -1,7 +1,8 @@
 import type { Country } from '../models/country.js';
 import { createCountryCard } from './countryCard.js';
 import { createCountryDetails } from './countryDetails.js';
-import { createFlag, createIcon, element } from './dom.js';
+import { createIcon, element } from './dom.js';
+import { createFlagScene } from './flagScene.js';
 import { createSearchForm } from './searchForm.js';
 import { createSearchStatus, type SearchStatus } from './searchStatus.js';
 
@@ -11,24 +12,21 @@ export function createApp(
 ) {
   const root = element('div', 'app');
   const header = element('header', 'app-header container');
+  const scene = createFlagScene(country);
   const brand = element('div', 'brand');
   const globe = createIcon('globe');
   globe.setAttribute('class', 'brand-icon');
   brand.append(globe, element('span', '', 'Country Search'));
-  header.append(brand, element('span', 'scene-mode', 'Статичный флаг'));
+  header.append(brand, scene.control);
   const main = element('main', 'app-main container');
   const hero = element('section', 'hero');
   hero.setAttribute('aria-labelledby', 'hero-title');
   const title = element('h1', 'hero-title');
   title.id = 'hero-title';
   title.append('Откройте мир.', document.createElement('br'), 'Страна за страной.');
-  const example = element('figure', 'flag-preview');
-  const flag = createFlag(country.flag);
-  flag.classList.add('flag-image');
-  example.append(flag, element('figcaption', 'flag-caption', 'Визуальный пример · Япония'));
-  hero.append(element('p', 'hero-eyebrow', 'Страны мира'), title, example);
+  hero.append(element('p', 'hero-eyebrow', 'Страны мира'), title, scene.root);
   const search = createSearchForm(callbacks.onInput);
-  const details = createCountryDetails(() => search.input);
+  const details = createCountryDetails(() => search.input, scene.setPaused);
   const status = createSearchStatus(() => {
     search.input.focus();
     callbacks.onRetry();
@@ -60,10 +58,17 @@ export function createApp(
     render(state: SearchStatus, countries: readonly Country[] = []) {
       root.dataset.hasQuery = String(search.input.value.trim().length > 0);
       results.hidden = state.kind !== 'results';
+      const preview = state.kind === 'results' ? countries[0] : undefined;
+      scene.setCountry(preview ?? country, preview === undefined);
       count.textContent = `Найдено: ${countries.length}`;
       grid.replaceChildren(
         ...(state.kind === 'results'
-          ? countries.map((item) => createCountryCard(item, (button) => details.open(item, button)))
+          ? countries.map((item) =>
+              createCountryCard(item, (button) => {
+                scene.setCountry(item, false);
+                details.open(item, button);
+              }),
+            )
           : []),
       );
       status.render(state);
@@ -72,6 +77,7 @@ export function createApp(
       search.destroy();
       status.destroy();
       details.destroy();
+      scene.destroy();
       root.remove();
     },
   };

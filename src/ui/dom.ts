@@ -52,7 +52,7 @@ export function createFlag(flag: Country['flag']): HTMLSpanElement {
 }
 
 export function createIcon(
-  kind: 'globe' | 'search' | 'close' | 'arrow' | 'warning',
+  kind: 'globe' | 'search' | 'close' | 'arrow' | 'warning' | 'pause' | 'play',
 ): SVGSVGElement {
   const namespace = 'http://www.w3.org/2000/svg';
   const svg = document.createElementNS(namespace, 'svg');
@@ -71,6 +71,8 @@ export function createIcon(
     close: 'm8 8 16 16M24 8 8 24',
     arrow: 'M6 16h20m-8-8 8 8-8 8',
     warning: 'M16 4 30 28H2L16 4Zm0 8v7m0 4v1',
+    pause: 'M12 8v16M20 8v16',
+    play: 'm11 7 14 9-14 9V7Z',
   };
   path.setAttribute('d', paths[kind]);
   svg.append(path);
