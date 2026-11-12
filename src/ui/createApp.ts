@@ -1,128 +1,78 @@
 import type { Country } from '../models/country.js';
+import { createCountryCard } from './countryCard.js';
+import { createCountryDetails } from './countryDetails.js';
+import { createFlag, createIcon, element } from './dom.js';
+import { createSearchForm } from './searchForm.js';
+import { createSearchStatus, type SearchStatus } from './searchStatus.js';
 
-export interface AppElements {
-  readonly root: HTMLElement;
-  readonly input: HTMLInputElement;
-  readonly results: HTMLElement;
-  readonly resultsGrid: HTMLDivElement;
-  readonly status: HTMLParagraphElement;
-}
-
-function element<K extends keyof HTMLElementTagNameMap>(
-  tag: K,
-  className: string,
-  text?: string,
-): HTMLElementTagNameMap[K] {
-  const node = document.createElement(tag);
-  node.className = className;
-  if (text !== undefined) node.textContent = text;
-  return node;
-}
-
-function createIcon(kind: 'globe' | 'search'): SVGSVGElement {
-  const namespace = 'http://www.w3.org/2000/svg';
-  const svg = document.createElementNS(namespace, 'svg');
-  svg.setAttribute('class', kind === 'globe' ? 'brand-icon' : 'search-icon');
-  svg.setAttribute('viewBox', '0 0 32 32');
-  svg.setAttribute('fill', 'none');
-  svg.setAttribute('stroke', 'currentColor');
-  svg.setAttribute('stroke-width', '1.6');
-  svg.setAttribute('aria-hidden', 'true');
-  svg.setAttribute('focusable', 'false');
-
-  const circle = document.createElementNS(namespace, 'circle');
-  circle.setAttribute('cx', kind === 'globe' ? '16' : '13');
-  circle.setAttribute('cy', kind === 'globe' ? '16' : '13');
-  circle.setAttribute('r', kind === 'globe' ? '13' : '8');
-  const path = document.createElementNS(namespace, 'path');
-  path.setAttribute(
-    'd',
-    kind === 'globe' ? 'M3 16h26M6 8.5c6 4 14 4 20 0M6 23.5c6-4 14-4 20 0' : 'm19 19 8 8',
-  );
-  svg.append(circle, path);
-  if (kind === 'globe') {
-    const ellipse = document.createElementNS(namespace, 'ellipse');
-    ellipse.setAttribute('cx', '16');
-    ellipse.setAttribute('cy', '16');
-    ellipse.setAttribute('rx', '6');
-    ellipse.setAttribute('ry', '13');
-    svg.append(ellipse);
-  }
-  return svg;
-}
-
-/** Creates the static visual shell; search behavior is connected in later steps. */
-export function createApp(country: Country): AppElements {
+export function createApp(
+  country: Country,
+  callbacks: { onInput: (query: string) => void; onRetry: () => void },
+) {
   const root = element('div', 'app');
   const header = element('header', 'app-header container');
   const brand = element('div', 'brand');
-  brand.append(createIcon('globe'), element('span', '', 'Country Search'));
+  const globe = createIcon('globe');
+  globe.setAttribute('class', 'brand-icon');
+  brand.append(globe, element('span', '', 'Country Search'));
   header.append(brand, element('span', 'scene-mode', 'Статичный флаг'));
-
   const main = element('main', 'app-main container');
   const hero = element('section', 'hero');
   hero.setAttribute('aria-labelledby', 'hero-title');
-  const eyebrow = element('p', 'hero-eyebrow', 'Страны мира');
   const title = element('h1', 'hero-title');
   title.id = 'hero-title';
   title.append('Откройте мир.', document.createElement('br'), 'Страна за страной.');
-
   const example = element('figure', 'flag-preview');
-  if (country.flag !== null) {
-    const flag = element('img', 'flag-image');
-    flag.src = country.flag.url;
-    flag.alt = country.flag.alt;
-    flag.width = 900;
-    flag.height = 600;
-    flag.decoding = 'async';
-    flag.draggable = false;
-    example.append(flag);
-  } else {
-    example.append(element('p', 'flag-image', 'Флаг недоступен'));
-  }
-  example.append(element('figcaption', 'flag-caption', `Визуальный пример · ${country.name}`));
-  hero.append(eyebrow, title, example);
-
-  const search = element('section', 'search-area');
-  search.setAttribute('aria-labelledby', 'country-search-label');
-  const label = element('label', 'search-label', 'Поиск страны');
-  label.id = 'country-search-label';
-  label.htmlFor = 'country-search-input';
-  const searchBox = element('div', 'search-box');
-  const input = element('input', 'search-input');
-  input.id = 'country-search-input';
-  input.type = 'search';
-  input.name = 'country';
-  input.placeholder = 'Например, Spain или Japan';
-  input.autocomplete = 'off';
-  input.disabled = true;
-  input.setAttribute('aria-describedby', 'country-search-hint');
-  searchBox.append(createIcon('search'), input);
-  const hint = element('p', 'search-hint', 'Поиск пока недоступен');
-  hint.id = 'country-search-hint';
-  search.append(label, searchBox, hint);
-
-  const status = element('p', 'search-status', 'Демонстрационный экран');
-  status.id = 'country-search-status';
-  status.setAttribute('role', 'status');
-  status.setAttribute('aria-live', 'polite');
-  status.setAttribute('aria-atomic', 'true');
+  const flag = createFlag(country.flag);
+  flag.classList.add('flag-image');
+  example.append(flag, element('figcaption', 'flag-caption', 'Визуальный пример · Япония'));
+  hero.append(element('p', 'hero-eyebrow', 'Страны мира'), title, example);
+  const search = createSearchForm(callbacks.onInput);
+  const details = createCountryDetails(() => search.input);
+  const status = createSearchStatus(() => {
+    search.input.focus();
+    callbacks.onRetry();
+  }, search.clear);
   const results = element('section', 'results');
-  results.id = 'country-results';
-  results.setAttribute('aria-label', 'Результаты поиска стран');
+  results.setAttribute('aria-labelledby', 'results-title');
+  const resultsHeader = element('div', 'results-header');
+  const resultsTitle = element('h2', 'results-title', 'Результаты поиска');
+  resultsTitle.id = 'results-title';
+  const count = element('span', 'results-count');
+  resultsHeader.append(resultsTitle, count);
+  const grid = element('div', 'results-grid');
+  results.append(resultsHeader, grid);
   results.hidden = true;
-  const resultsGrid = element('div', 'results-grid');
-  results.append(resultsGrid);
-  main.append(hero, search, status, results);
-
+  main.append(hero, search.root, status.root, results);
   const footer = element('footer', 'app-footer container');
   const links = element('div', 'footer-links');
-  const sourceLink = element('a', '', 'countries.dev');
-  sourceLink.href = 'https://countries.dev';
-  const taskLink = element('a', '', 'Задание');
-  taskLink.href = './docs/TASK.md';
-  links.append(sourceLink, taskLink);
+  const source = element('a', '', 'countries.dev');
+  source.href = 'https://countries.dev';
+  const task = element('a', '', 'Задание');
+  task.href = './docs/TASK.md';
+  links.append(source, task);
   footer.append(links, element('span', 'footer-note', 'Демонстрационный экран'));
-  root.append(header, main, footer);
-  return { root, input, results, resultsGrid, status };
+  root.append(header, main, footer, details.dialog);
+  return {
+    root,
+    input: search.input,
+    setQuery: search.setValue,
+    render(state: SearchStatus, countries: readonly Country[] = []) {
+      root.dataset.hasQuery = String(search.input.value.trim().length > 0);
+      results.hidden = state.kind !== 'results';
+      count.textContent = `Найдено: ${countries.length}`;
+      grid.replaceChildren(
+        ...(state.kind === 'results'
+          ? countries.map((item) => createCountryCard(item, (button) => details.open(item, button)))
+          : []),
+      );
+      status.render(state);
+    },
+    destroy() {
+      search.destroy();
+      status.destroy();
+      details.destroy();
+      root.remove();
+    },
+  };
 }
