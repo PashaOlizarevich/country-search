@@ -1,1 +1,3 @@
-/* Общие стили добавим на визуальном этапе. */
+@import url('./tokens.css');
+@import url('./base.css');
+@import url('./layout.css');
