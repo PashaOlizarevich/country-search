@@ -53,7 +53,7 @@ void main() {
   float sheen = pow(max(dot(normal, normalize(light + vec3(0.0, 0.0, 1.0))), 0.0), 24.0);
   float weave = 0.993 + 0.007 * sin(vUv.x * 800.0) * sin(vUv.y * 600.0);
   vec3 color = flag.rgb * (0.44 + 0.58 * diffuse + 0.10 * fill) * weave;
-  gl_FragColor = vec4(color + 0.055 * sheen, flag.a);
+  gl_FragColor = vec4((color + 0.055 * sheen) * flag.a, flag.a);
 }
 `;
 
