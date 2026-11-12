@@ -6,34 +6,34 @@
 
 ## Обязательные технологии по ТЗ
 
-| Технология | Назначение и требования |
-| --- | --- |
-| TypeScript | Вся логика и интерфейс приложения |
-| DOM API | Создание разметки из кода; `body` содержит только скрипт; динамические `innerHTML` и `insertAdjacentHTML` запрещены |
-| `fetch`, `Promise`, `async/await` | Асинхронные запросы и обработка результатов; обязательна проверка `response.ok` |
-| `AbortController`, `AbortSignal` | Настоящая отмена активного запроса при каждом изменении ввода |
-| `AbortSignal.timeout` и `AbortSignal.any` либо ручной эквивалент | Таймаут и объединение причин отмены; таймаут обрабатывается отдельно от своей отмены |
-| countries.dev | Публичный API: `GET https://countries.dev/name/{query}`, без ключа; свой backend или прокси не создаём |
-| Jest или Vitest | Тесты без реальной сети, с моками `fetch` и управляемыми таймерами |
-| ESLint | Проверка кода |
-| Prettier | Форматирование кода |
-| Husky и lint-staged | `pre-commit` запускает только lint-staged с ESLint и Prettier; `pre-push` запускает `npm test` |
+| Технология                                                       | Назначение и требования                                                                                             |
+| ---------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------- |
+| TypeScript                                                       | Вся логика и интерфейс приложения                                                                                   |
+| DOM API                                                          | Создание разметки из кода; `body` содержит только скрипт; динамические `innerHTML` и `insertAdjacentHTML` запрещены |
+| `fetch`, `Promise`, `async/await`                                | Асинхронные запросы и обработка результатов; обязательна проверка `response.ok`                                     |
+| `AbortController`, `AbortSignal`                                 | Настоящая отмена активного запроса при каждом изменении ввода                                                       |
+| `AbortSignal.timeout` и `AbortSignal.any` либо ручной эквивалент | Таймаут и объединение причин отмены; таймаут обрабатывается отдельно от своей отмены                                |
+| countries.dev                                                    | Публичный API: `GET https://countries.dev/name/{query}`, без ключа; свой backend или прокси не создаём              |
+| Jest или Vitest                                                  | Тесты без реальной сети, с моками `fetch` и управляемыми таймерами                                                  |
+| ESLint                                                           | Проверка кода                                                                                                       |
+| Prettier                                                         | Форматирование кода                                                                                                 |
+| Husky и lint-staged                                              | `pre-commit` запускает только lint-staged с ESLint и Prettier; `pre-push` запускает `npm test`                      |
 
 Самостоятельно реализуем `debounce`, а при выполнении бонуса — кэширование. Готовые библиотеки вроде lodash для этих задач не используем.
 
 ## Наш выбор для проекта
 
-| Часть | Выбор | Статус |
-| --- | --- | --- |
-| Интерфейс | Обычный TypeScript и DOM API, без UI-фреймворка | Есть пустая точка входа `src/main.ts`; интерфейс предстоит создать |
-| Оформление | Обычный CSS | Создан `src/styles/index.css` с комментарием-заготовкой |
-| Компиляция | `tsc`, ES-модули, без сборщика приложения | Строгий `tsconfig.json`, `src/` → `dist/`; `typecheck` и `build` прошли |
-| Пакетный менеджер | npm | 10 точных `devDependencies` установлены; создан `package-lock.json` версии 3 |
-| Тестовый инструмент | Vitest — выбранный вариант из двух разрешённых | Установлен; конфигурация и скрипт тестов ещё не добавлены |
-| Проверки и форматирование | ESLint и Prettier | Установлены; конфигурации и скрипты ещё не добавлены |
-| Git-хуки | Husky и lint-staged | Установлены; хуки ещё не созданы; country-search отслеживает origin/country-search |
-| Локальный HTTP-сервер | http-server | `npm start`: сборка и сервер на `127.0.0.1:8080` без кэша; HTTP-загрузка HTML/JS/CSS проверена |
-| Публикация | Статический хостинг, например GitHub Pages | Конкретная площадка пока не выбрана |
+| Часть                     | Выбор                                           | Статус                                                                                                                        |
+| ------------------------- | ----------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
+| Интерфейс                 | Обычный TypeScript и DOM API, без UI-фреймворка | Есть пустая точка входа `src/main.ts`; интерфейс предстоит создать                                                            |
+| Оформление                | Обычный CSS                                     | Создан `src/styles/index.css` с комментарием-заготовкой                                                                       |
+| Компиляция                | `tsc`, ES-модули, без сборщика приложения       | Строгий `tsconfig.json`, `src/` → `dist/`; `typecheck` и `build` прошли                                                       |
+| Пакетный менеджер         | npm                                             | 10 точных `devDependencies` установлены; создан `package-lock.json` версии 3                                                  |
+| Тестовый инструмент       | Vitest                                          | Настроен vitest.config.ts, npm test, Node без DOM, src/**/*.test.ts; пустой запуск проходит                                   |
+| Проверки и форматирование | ESLint и Prettier                               | Конфигурации, lint, format и format:check настроены; проверки проходят                                                        |
+| Git-хуки                  | Husky и lint-staged                             | prepare подключает локальные хуки; pre-commit проверяет staged-файлы, pre-push запускает тесты; контрольные сценарии проходят |
+| Локальный HTTP-сервер     | http-server                                     | `npm start`: сборка и сервер на `127.0.0.1:8080` без кэша; HTTP-загрузка HTML/JS/CSS проверена                                |
+| Публикация                | Статический хостинг, например GitHub Pages      | Конкретная площадка пока не выбрана                                                                                           |
 
 ТЗ не требует сборщика и допускает компиляцию через `tsc`. CSS и выбор Vitest — наши решения для этого проекта. TypeScript **6.0.3** установлен; версия закреплена в [package.json](../package.json) и [package-lock.json](../package-lock.json).
 
@@ -41,20 +41,20 @@ Node.js используется для инструментов разрабо�
 
 ## Установленные версии
 
-Набор выбран в пункте 2 и установлен в пункте 3 плана **2026-11-12** с Node.js **24.14.1** и npm **11.11.0**. Версии сверены между manifest, lock-файлом и установленными пакетами; `engines` и обязательные прямые `peerDependencies` совместимы. `npm ls --depth=0`, `tsc --version`, `typecheck` и `build` прошли. Запуск CLI Vitest, Vite, ESLint, Prettier, lint-staged и http-server с `--version` также прошёл; конфигурации этих инструментов ещё предстоит добавить.
+Набор выбран в пункте 2 и установлен в пункте 3 плана **2026-11-12** с Node.js **24.14.1** и npm **11.11.0**. Версии сверены между manifest, lock-файлом и установленными пакетами; `engines` и обязательные прямые `peerDependencies` совместимы. `npm ls --depth=0`, `tsc --version`, `typecheck` и `build` прошли. Запуск CLI Vitest, Vite, ESLint, Prettier, lint-staged и http-server с `--version` также прошёл; конфигурации и скрипты проверок настроены.
 
-| Пакет | Точная версия | Назначение и совместимость |
-| --- | --- | --- |
-| [typescript](https://registry.npmjs.org/typescript/6.0.3) | 6.0.3 | Компилятор `tsc`; Node.js >=14.17; входит в диапазон поддержки typescript-eslint |
-| [vitest](https://registry.npmjs.org/vitest/5.1.0) | 5.1.0 | Тесты логики без DOM; Node.js `^22.12.0 || ^24.0.0 || >=26.0.0` |
-| [vite](https://registry.npmjs.org/vite/8.3.8) | 8.3.8 | Обязательная peer-зависимость Vitest (`^6.4.0 || ^7.0.0 || ^8.0.0`); Node.js `^20.19.0 || >=22.12.0` |
-| [eslint](https://registry.npmjs.org/eslint/10.14.0) | 10.14.0 | Линтер; Node.js `^20.19.0 || ^22.13.0 || >=24` |
-| [@eslint/js](https://registry.npmjs.org/@eslint%2Fjs/10.0.1) | 10.0.1 | Базовая конфигурация ESLint; peer ESLint `^10.0.0`; требования Node.js совпадают с ESLint |
-| [typescript-eslint](https://registry.npmjs.org/typescript-eslint/8.72.2) | 8.72.2 | Поддержка TypeScript в ESLint; peer ESLint `^8.57.0 || ^9.0.0 || ^10.0.0`, TypeScript `>=4.8.4 <6.1.0`; Node.js `^18.18.0 || ^20.9.0 || >=21.1.0` |
-| [prettier](https://registry.npmjs.org/prettier/3.10.1) | 3.10.1 | Форматирование; Node.js >=14 |
-| [husky](https://registry.npmjs.org/husky/9.1.7) | 9.1.7 | Git-хуки; Node.js >=18 |
-| [lint-staged](https://registry.npmjs.org/lint-staged/17.6.0) | 17.6.0 | Проверка подготовленных файлов; Node.js >=22.22.1 |
-| [http-server](https://registry.npmjs.org/http-server/14.1.1) | 14.1.1 | Локальная раздача статических файлов; Node.js >=12 |
+| Пакет                                                                    | Точная версия | Назначение и совместимость                                                                                                                                |
+| ------------------------------------------------------------------------ | ------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [typescript](https://registry.npmjs.org/typescript/6.0.3)                | 6.0.3         | Компилятор `tsc`; Node.js >=14.17; входит в диапазон поддержки typescript-eslint                                                                          |
+| [vitest](https://registry.npmjs.org/vitest/5.1.0)                        | 5.1.0         | Тесты логики без DOM; Node.js `^22.12.0 \|\| ^24.0.0 \|\| >=26.0.0`                                                                                       |
+| [vite](https://registry.npmjs.org/vite/8.3.8)                            | 8.3.8         | Обязательная peer-зависимость Vitest (`^6.4.0 \|\| ^7.0.0 \|\| ^8.0.0`); Node.js `^20.19.0 \|\| >=22.12.0`                                                |
+| [eslint](https://registry.npmjs.org/eslint/10.14.0)                      | 10.14.0       | Линтер; Node.js `^20.19.0 \|\| ^22.13.0 \|\| >=24`                                                                                                        |
+| [@eslint/js](https://registry.npmjs.org/@eslint%2Fjs/10.0.1)             | 10.0.1        | Базовая конфигурация ESLint; peer ESLint `^10.0.0`; требования Node.js совпадают с ESLint                                                                 |
+| [typescript-eslint](https://registry.npmjs.org/typescript-eslint/8.72.2) | 8.72.2        | Поддержка TypeScript в ESLint; peer ESLint `^8.57.0 \|\| ^9.0.0 \|\| ^10.0.0`, TypeScript `>=4.8.4 <6.1.0`; Node.js `^18.18.0 \|\| ^20.9.0 \|\| >=21.1.0` |
+| [prettier](https://registry.npmjs.org/prettier/3.10.1)                   | 3.10.1        | Форматирование; Node.js >=14                                                                                                                              |
+| [husky](https://registry.npmjs.org/husky/9.1.7)                          | 9.1.7         | Git-хуки; Node.js >=18                                                                                                                                    |
+| [lint-staged](https://registry.npmjs.org/lint-staged/17.6.0)             | 17.6.0        | Проверка подготовленных файлов; Node.js >=22.22.1                                                                                                         |
+| [http-server](https://registry.npmjs.org/http-server/14.1.1)             | 14.1.1        | Локальная раздача статических файлов; Node.js >=12                                                                                                        |
 
 Ранее объявленный TypeScript 7.0.2 существует в registry, но не поддерживается выбранным typescript-eslint 8.72.2. Поэтому в manifest закреплён TypeScript 6.0.3, а не обход peer-проверок. Основание: [официальные диапазоны поддержки typescript-eslint](https://typescript-eslint.io/users/dependency-versions/) и [изменения TypeScript 6.0](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-6-0.html).
 
@@ -72,6 +72,6 @@ Node.js 24.14.1 удовлетворяет перечисленным требо
 
 Для обязательной логики соблюдаем TDD и FIRST: сначала отдельный коммит с падающими тестами, затем отдельный коммит с реализацией. Для гонки запросов нужен отдельный тест, мок которого действительно поддерживает отмену.
 
-Сейчас в `package.json` работают `build`, `typecheck`, `start` и `dev`. `start` собирает проект и запускает http-server, `dev` наблюдает за TypeScript во втором терминале. Требуемые ТЗ скрипты `lint`, `format`, `test` добавим вместе с конфигурациями уже установленных инструментов.
+Сейчас в `package.json` работают `build`, `typecheck`, `start` и `dev`. `start` собирает проект и запускает http-server, `dev` наблюдает за TypeScript во втором терминале. Настроены также `test`, `lint`, `format`, `format:check` и `prepare`; их проверки прошли.
 
-Пункты 4–6 выполнены: проверены конфигурация TypeScript, команды сборки/проверки типов, локальный HTTP-сервер и повторная компиляция в watch-режиме. `build` записывает `dist/main.js`, `typecheck` не меняет выходные файлы; ошибки компилятора передаются с ненулевым кодом. Подробности и границы исключения тестов описаны в [архитектуре](ARCHITECTURE.md). Следующий этап — пункт 7: конфигурация Vitest и скрипт тестов.
+Пункты 4–12 выполнены: проверены конфигурация TypeScript, команды сборки/проверки типов, локальный сервер, watch, Vitest, ESLint, Prettier, lint-staged и Husky. Контрольный красный assertion блокирует pre-push, а pre-commit продолжает обрабатывать только staged-файлы. Проверочные изменения восстановлены; тестов логики приложения пока нет. Дальнейший порядок — в [плане реализации](IMPLEMENTATION_PLAN.md).

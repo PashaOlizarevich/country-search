@@ -1,6 +1,6 @@
 ---
 name: country-search-setup
-description: "Настройка инструментов Country Search: TypeScript, npm-скрипты, Vitest, ESLint, Prettier и Git-хуки. Применять при изменении конфигурации или зависимостей, а не при обычной правке интерфейса или документации."
+description: 'Настройка инструментов Country Search: TypeScript, npm-скрипты, Vitest, ESLint, Prettier и Git-хуки. Применять при изменении конфигурации или зависимостей, а не при обычной правке интерфейса или документации.'
 ---
 
 # Настройка инструментов Country Search
