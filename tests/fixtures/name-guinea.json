@@ -1,0 +1,192 @@
+[
+  {
+    "area": 28051,
+    "cioc": "GEQ",
+    "flag": "🇬🇶",
+    "name": "Equatorial Guinea",
+    "flags": {
+      "png": "https://flagcdn.com/w320/gq.png",
+      "svg": "https://flagcdn.com/gq.svg"
+    },
+    "latlng": [2, 10],
+    "region": "Africa",
+    "borders": ["CMR", "GAB"],
+    "capital": "Malabo",
+    "demonym": "Equatorial Guinean",
+    "languages": [
+      {
+        "name": "Spanish",
+        "iso639_1": "es",
+        "iso639_2": "spa",
+        "nativeName": "Español"
+      },
+      {
+        "name": "French",
+        "iso639_1": "fr",
+        "iso639_2": "fra",
+        "nativeName": "français"
+      },
+      {
+        "name": "Portuguese",
+        "iso639_1": "pt",
+        "iso639_2": "por",
+        "nativeName": "Português"
+      },
+      {
+        "name": "Fang",
+        "iso639_2": "fan",
+        "nativeName": "Fang"
+      }
+    ],
+    "subregion": "Middle Africa",
+    "timezones": ["UTC+01:00"],
+    "alpha2Code": "GQ",
+    "alpha3Code": "GNQ",
+    "currencies": [
+      {
+        "code": "XAF",
+        "name": "Central African CFA franc",
+        "symbol": "Fr"
+      }
+    ],
+    "nativeName": "Guinea Ecuatorial",
+    "population": 1402985,
+    "independent": true,
+    "numericCode": "226",
+    "callingCodes": ["240"],
+    "topLevelDomain": [".gq"],
+    "populationDensity": 50.02
+  },
+  {
+    "area": 245857,
+    "cioc": "GUI",
+    "flag": "🇬🇳",
+    "gini": 33.7,
+    "name": "Guinea",
+    "flags": {
+      "png": "https://flagcdn.com/w320/gn.png",
+      "svg": "https://flagcdn.com/gn.svg"
+    },
+    "latlng": [11, -10],
+    "region": "Africa",
+    "borders": ["CIV", "GNB", "LBR", "MLI", "SEN", "SLE"],
+    "capital": "Conakry",
+    "demonym": "Guinean",
+    "languages": [
+      {
+        "name": "French",
+        "iso639_1": "fr",
+        "iso639_2": "fra",
+        "nativeName": "français"
+      },
+      {
+        "name": "Fula",
+        "iso639_1": "ff",
+        "iso639_2": "ful",
+        "nativeName": "Fulfulde"
+      }
+    ],
+    "subregion": "Western Africa",
+    "timezones": ["UTC"],
+    "alpha2Code": "GN",
+    "alpha3Code": "GIN",
+    "currencies": [
+      {
+        "code": "GNF",
+        "name": "Guinean franc",
+        "symbol": "Fr"
+      }
+    ],
+    "nativeName": "Guinée",
+    "population": 13132792,
+    "independent": true,
+    "numericCode": "324",
+    "callingCodes": ["224"],
+    "topLevelDomain": [".gn"],
+    "populationDensity": 53.42
+  },
+  {
+    "area": 36125,
+    "cioc": "GBS",
+    "flag": "🇬🇼",
+    "gini": 50.7,
+    "name": "Guinea-Bissau",
+    "flags": {
+      "png": "https://flagcdn.com/w320/gw.png",
+      "svg": "https://flagcdn.com/gw.svg"
+    },
+    "latlng": [12, -15],
+    "region": "Africa",
+    "borders": ["GIN", "SEN"],
+    "capital": "Bissau",
+    "demonym": "Guinea-Bissauan",
+    "languages": [
+      {
+        "name": "Portuguese",
+        "iso639_1": "pt",
+        "iso639_2": "por",
+        "nativeName": "Português"
+      }
+    ],
+    "subregion": "Western Africa",
+    "timezones": ["UTC"],
+    "alpha2Code": "GW",
+    "alpha3Code": "GNB",
+    "currencies": [
+      {
+        "code": "XOF",
+        "name": "West African CFA franc",
+        "symbol": "Fr"
+      }
+    ],
+    "nativeName": "Guiné-Bissau",
+    "population": 1967998,
+    "independent": true,
+    "numericCode": "624",
+    "callingCodes": ["245"],
+    "topLevelDomain": [".gw"],
+    "populationDensity": 54.48
+  },
+  {
+    "area": 462840,
+    "cioc": "PNG",
+    "flag": "🇵🇬",
+    "gini": 41.9,
+    "name": "Papua New Guinea",
+    "flags": {
+      "png": "https://flagcdn.com/w320/pg.png",
+      "svg": "https://flagcdn.com/pg.svg"
+    },
+    "latlng": [-6, 147],
+    "region": "Oceania",
+    "borders": ["IDN"],
+    "capital": "Port Moresby",
+    "demonym": "Papua New Guinean",
+    "languages": [
+      {
+        "name": "English",
+        "iso639_1": "en",
+        "iso639_2": "eng",
+        "nativeName": "English"
+      }
+    ],
+    "subregion": "Melanesia",
+    "timezones": ["UTC+10:00"],
+    "alpha2Code": "PG",
+    "alpha3Code": "PNG",
+    "currencies": [
+      {
+        "code": "PGK",
+        "name": "Papua New Guinean kina",
+        "symbol": "K"
+      }
+    ],
+    "nativeName": "Papua Niugini",
+    "population": 8947027,
+    "independent": true,
+    "numericCode": "598",
+    "callingCodes": ["675"],
+    "topLevelDomain": [".pg"],
+    "populationDensity": 19.33
+  }
+]
