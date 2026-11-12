@@ -1,0 +1,870 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" href="../../assets/flags/jp.svg" />
+    <title>Country Search — макеты</title>
+    <style>
+      :root {
+        font-family:
+          system-ui,
+          -apple-system,
+          BlinkMacSystemFont,
+          'Segoe UI',
+          sans-serif;
+        color: #172033;
+        background: #f4f6fa;
+        font-synthesis: none;
+        --muted: #526076;
+        --accent: #2457d6;
+        --line: #d7dfeb;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+      }
+      button,
+      input {
+        font: inherit;
+      }
+      button {
+        cursor: default;
+      }
+      button:focus-visible,
+      input:focus-visible,
+      a:focus-visible {
+        outline: 3px solid var(--accent);
+        outline-offset: 3px;
+      }
+      a {
+        color: inherit;
+      }
+      .site {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        background:
+          radial-gradient(ellipse at 60% 36%, #e2ebfc 0, transparent 45%),
+          radial-gradient(ellipse at 22% 73%, #eaf0fa 0, transparent 42%), #f4f6fa;
+      }
+      .wrap {
+        width: min(1200px, calc(100% - 64px));
+        margin-inline: auto;
+      }
+      .header {
+        height: 72px;
+        margin-top: 12px;
+        padding: 0 20px;
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background: rgba(255, 255, 255, 0.55);
+        border: 1px solid white;
+        border-radius: 20px;
+      }
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 22px;
+        font-weight: 700;
+        letter-spacing: -0.5px;
+      }
+      .brand svg {
+        width: 31px;
+        height: 31px;
+        color: var(--accent);
+      }
+      .animation {
+        min-height: 44px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 10px 16px;
+        border: 1px solid var(--accent);
+        border-radius: 12px;
+        color: var(--accent);
+        background: rgba(255, 255, 255, 0.6);
+        font-size: 14px;
+        font-weight: 600;
+      }
+      .pause {
+        width: 10px;
+        height: 12px;
+        border-inline: 3px solid currentColor;
+      }
+      main {
+        flex: 1;
+      }
+      .hero {
+        padding-top: 26px;
+        text-align: center;
+      }
+      .eyebrow {
+        margin: 0 0 12px;
+        color: var(--accent);
+        font-size: 14px;
+        font-weight: 600;
+      }
+      h1 {
+        margin: 0;
+        font-size: 60px;
+        line-height: 1.08;
+        letter-spacing: -2.4px;
+        font-weight: 700;
+      }
+      .scene {
+        height: 300px;
+        margin: 0;
+        position: relative;
+        display: grid;
+        justify-items: center;
+        align-items: center;
+        padding-bottom: 28px;
+      }
+      .scene img {
+        display: block;
+        width: min(540px, 100%);
+        height: 100%;
+        min-height: 0;
+        object-fit: contain;
+        filter: drop-shadow(0 18px 15px rgba(42, 57, 90, 0.14));
+      }
+      .scene figcaption {
+        position: absolute;
+        bottom: 0;
+        color: var(--muted);
+        font-size: 14px;
+      }
+      .search-area {
+        max-width: 640px;
+        margin: 24px auto 0;
+      }
+      .search-label {
+        display: block;
+        margin-bottom: 9px;
+        font-size: 16px;
+        font-weight: 600;
+      }
+      .search-box {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        height: 64px;
+        padding: 8px 10px 8px 20px;
+        border: 1px solid #c7d3e8;
+        border-radius: 17px;
+        background: rgba(255, 255, 255, 0.82);
+        box-shadow: 0 10px 28px rgba(31, 58, 102, 0.05);
+        backdrop-filter: blur(16px);
+      }
+      .search-icon {
+        flex-shrink: 0;
+        width: 22px;
+        height: 22px;
+        color: var(--accent);
+      }
+      input {
+        width: 100%;
+        min-width: 0;
+        border: 0;
+        background: transparent;
+        color: #172033;
+        font-size: 16px;
+      }
+      input::placeholder {
+        color: #526076;
+      }
+      .clear {
+        flex-shrink: 0;
+        width: 44px;
+        height: 44px;
+        display: grid;
+        place-items: center;
+        border: 0;
+        border-radius: 12px;
+        color: var(--muted);
+        background: #f1f4fa;
+      }
+      .clear svg {
+        width: 20px;
+        height: 20px;
+      }
+      .clear[hidden] {
+        display: none;
+      }
+      .hint {
+        margin: 9px 0 0;
+        color: var(--muted);
+        font-size: 14px;
+        line-height: 1.5;
+      }
+      .content {
+        width: min(1000px, 100%);
+        margin: 24px auto 0;
+      }
+      .results-heading {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 16px;
+      }
+      h2 {
+        margin: 0;
+        font-size: 24px;
+        letter-spacing: -0.5px;
+      }
+      .count {
+        color: var(--muted);
+        font-size: 14px;
+      }
+      .cards {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 20px;
+      }
+      .card {
+        padding: 20px;
+        text-align: left;
+        color: inherit;
+        border: 1px solid var(--line);
+        border-radius: 24px;
+        background: rgba(255, 255, 255, 0.82);
+        box-shadow: 0 8px 22px rgba(33, 53, 92, 0.04);
+      }
+      .country-top {
+        display: flex;
+        align-items: center;
+        gap: 13px;
+        margin-bottom: 20px;
+      }
+      .mini-flag {
+        width: 57px;
+        height: 38px;
+        border: 1px solid #e4e7ed;
+        object-fit: contain;
+      }
+      .country-name {
+        display: block;
+        margin: 0 0 3px;
+        font-size: 22px;
+        font-weight: 650;
+        letter-spacing: -0.4px;
+      }
+      .country-native {
+        display: block;
+        color: var(--muted);
+        font-size: 14px;
+      }
+      dl {
+        margin: 0;
+      }
+      dt {
+        color: var(--muted);
+      }
+      dd {
+        margin: 0;
+        font-weight: 600;
+      }
+      .facts {
+        display: grid;
+        gap: 9px;
+        font-size: 14px;
+      }
+      .facts > span {
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+      }
+      .fact-label {
+        color: var(--muted);
+      }
+      .details-link {
+        min-height: 44px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-top: 17px;
+        padding-top: 12px;
+        border-top: 1px solid var(--line);
+        color: var(--accent);
+        font-size: 14px;
+        font-weight: 600;
+      }
+      .details-link svg {
+        width: 18px;
+        height: 18px;
+      }
+      .status {
+        max-width: 640px;
+        margin: auto;
+        min-height: 215px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 24px;
+        border: 1px solid var(--line);
+        border-radius: 24px;
+        background: rgba(255, 255, 255, 0.82);
+        text-align: center;
+      }
+      .status p {
+        max-width: 450px;
+        margin: 10px 0 0;
+        color: var(--muted);
+        font-size: 14px;
+        line-height: 1.6;
+      }
+      .status-icon {
+        display: grid;
+        place-items: center;
+        width: 44px;
+        height: 44px;
+        margin-bottom: 13px;
+        border-radius: 14px;
+        background: #eaf0fc;
+        color: var(--accent);
+      }
+      .status-icon svg {
+        width: 24px;
+        height: 24px;
+      }
+      .error-icon {
+        background: #fff1f3;
+        color: #a52a3a;
+      }
+      .status-button {
+        min-height: 44px;
+        margin-top: 17px;
+        padding: 10px 24px;
+        border: 1px solid var(--accent);
+        border-radius: 12px;
+        background: var(--accent);
+        color: white;
+        font-size: 14px;
+        font-weight: 600;
+      }
+      .spinner {
+        width: 29px;
+        height: 29px;
+        border: 3px solid #dce5f6;
+        border-top-color: var(--accent);
+        border-right-color: var(--accent);
+        border-radius: 50%;
+        transform: rotate(-35deg);
+      }
+      .initial-status {
+        min-height: 48px;
+        padding: 0;
+        border: 0;
+        background: transparent;
+      }
+      .initial-status p {
+        margin: 0;
+      }
+      .footer {
+        min-height: 64px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        margin-top: 24px;
+        color: var(--muted);
+        font-size: 12px;
+      }
+      .footer-links {
+        display: flex;
+        gap: 20px;
+      }
+      .footer a {
+        text-decoration: none;
+      }
+      body:not([data-state='initial']) h1 {
+        font-size: 44px;
+        letter-spacing: -1.6px;
+      }
+      body:not([data-state='initial']) .hero {
+        padding-top: 18px;
+      }
+      body:not([data-state='initial']) .scene {
+        height: 160px;
+        padding-bottom: 24px;
+      }
+      body:not([data-state='initial']) .scene img {
+        width: 340px;
+      }
+      .overlay {
+        position: fixed;
+        inset: 0;
+        z-index: 5;
+        display: grid;
+        place-items: center;
+        padding: 16px;
+        background: rgba(24, 38, 64, 0.23);
+        backdrop-filter: blur(7px);
+      }
+      .dialog {
+        width: 620px;
+        max-height: calc(100vh - 32px);
+        overflow: auto;
+        padding: 24px 32px 28px;
+        border: 1px solid white;
+        border-radius: 32px;
+        background: #fcfdff;
+        box-shadow: 0 28px 90px rgba(21, 40, 77, 0.2);
+      }
+      .dialog-toolbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 14px;
+        color: var(--muted);
+        font-size: 14px;
+      }
+      .close {
+        min-width: 92px;
+        min-height: 44px;
+        padding: 10px 16px;
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        background: white;
+        color: #172033;
+        font-size: 14px;
+      }
+      .dialog-cover {
+        height: 150px;
+        display: grid;
+        place-items: center;
+        margin-bottom: 20px;
+        border-radius: 18px;
+        background: #edf2fa;
+      }
+      .dialog-cover img {
+        width: 170px;
+        box-shadow: 0 12px 26px rgba(44, 65, 103, 0.1);
+      }
+      .dialog h2 {
+        font-size: 34px;
+        letter-spacing: -1px;
+      }
+      .native-name {
+        margin: 5px 0 23px;
+        color: var(--muted);
+        font-size: 14px;
+      }
+      .dialog-facts {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px 32px;
+      }
+      .dialog-facts dt {
+        margin-bottom: 5px;
+        font-size: 12px;
+      }
+      .dialog-facts dd {
+        font-size: 14px;
+      }
+      .wide {
+        grid-column: 1 / -1;
+      }
+      .dialog-note {
+        margin: 22px 0 0;
+        padding-top: 16px;
+        border-top: 1px solid var(--line);
+        color: var(--muted);
+        font-size: 14px;
+      }
+      @media (max-width: 600px) {
+        .wrap {
+          width: calc(100% - 32px);
+        }
+        .header {
+          height: 60px;
+          padding: 0 12px;
+          margin-top: 8px;
+          border-radius: 16px;
+        }
+        .brand {
+          gap: 8px;
+          font-size: 17px;
+        }
+        .brand svg {
+          width: 27px;
+          height: 27px;
+        }
+        .animation {
+          width: 44px;
+          height: 44px;
+          padding: 0;
+          justify-content: center;
+          border: 0;
+          background: transparent;
+        }
+        .animation-label {
+          display: none;
+        }
+        .hero,
+        body:not([data-state='initial']) .hero {
+          padding-top: 24px;
+        }
+        .eyebrow {
+          margin-bottom: 12px;
+          font-size: 14px;
+        }
+        h1,
+        body:not([data-state='initial']) h1 {
+          font-size: 32px;
+          line-height: 1.12;
+          letter-spacing: -1.15px;
+        }
+        .scene {
+          height: 210px;
+          padding-bottom: 28px;
+        }
+        .scene img {
+          width: 100%;
+        }
+        .scene figcaption {
+          font-size: 12px;
+        }
+        body:not([data-state='initial']) .scene {
+          height: 130px;
+          padding-bottom: 26px;
+        }
+        body:not([data-state='initial']) .scene img {
+          width: 240px;
+        }
+        .search-area {
+          margin-top: 20px;
+        }
+        .search-label {
+          font-size: 14px;
+          margin-bottom: 8px;
+        }
+        .search-box {
+          height: 56px;
+          gap: 10px;
+          padding: 5px 5px 5px 13px;
+          border-radius: 14px;
+        }
+        .search-icon {
+          width: 19px;
+          height: 19px;
+        }
+        input {
+          font-size: 16px;
+        }
+        .clear {
+          width: 44px;
+          height: 44px;
+          border-radius: 10px;
+        }
+        .hint {
+          font-size: 12px;
+          margin-top: 8px;
+        }
+        .content {
+          margin-top: 24px;
+        }
+        .results-heading {
+          margin-bottom: 13px;
+          gap: 12px;
+        }
+        h2 {
+          font-size: 20px;
+        }
+        .count {
+          font-size: 12px;
+          white-space: nowrap;
+        }
+        .cards {
+          grid-template-columns: 1fr;
+        }
+        .card {
+          padding: 20px;
+        }
+        .country-top {
+          margin-bottom: 18px;
+        }
+        .details-link {
+          margin-top: 15px;
+        }
+        .status {
+          min-height: 224px;
+          padding: 23px 18px;
+        }
+        .status p {
+          font-size: 14px;
+        }
+        .initial-status {
+          min-height: 56px;
+          padding: 10px 0;
+        }
+        .footer {
+          min-height: 62px;
+          margin-top: 24px;
+          font-size: 12px;
+        }
+        .footer-links {
+          gap: 15px;
+        }
+        .footer-note {
+          max-width: 120px;
+          text-align: right;
+          line-height: 1.4;
+        }
+        .dialog {
+          width: 100%;
+          padding: 18px 22px 22px;
+          border-radius: 28px;
+        }
+        .dialog-toolbar {
+          margin-bottom: 12px;
+          font-size: 12px;
+        }
+        .dialog-cover {
+          height: 126px;
+          margin-bottom: 17px;
+          border-radius: 16px;
+        }
+        .dialog-cover img {
+          width: 145px;
+        }
+        .dialog h2 {
+          font-size: 30px;
+        }
+        .native-name {
+          margin-bottom: 21px;
+        }
+        .dialog-facts {
+          gap: 18px 16px;
+        }
+        .dialog-note {
+          margin-top: 19px;
+          font-size: 12px;
+          line-height: 1.5;
+        }
+      }
+    </style>
+  </head>
+  <body data-state="initial">
+    <div class="site">
+      <header class="header wrap">
+        <div class="brand">
+          <svg
+            viewBox="0 0 32 32"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.6"
+            aria-hidden="true"
+          >
+            <circle cx="16" cy="16" r="13" />
+            <ellipse cx="16" cy="16" rx="6" ry="13" />
+            <path d="M3 16h26M6 8.5c6 4 14 4 20 0M6 23.5c6-4 14-4 20 0" /></svg
+          >Country Search
+        </div>
+        <button class="animation" aria-label="Остановить анимацию">
+          <span class="pause" aria-hidden="true"></span
+          ><span class="animation-label">Остановить анимацию</span>
+        </button>
+      </header>
+      <main class="wrap">
+        <section class="hero" aria-labelledby="page-title">
+          <p class="eyebrow">Страны мира</p>
+          <h1 id="page-title">Откройте мир.<br />Страна за страной.</h1>
+          <figure class="scene">
+            <img src="./flag-cloth-reference.png" alt="Визуальный образ тканевого флага Японии" />
+            <figcaption>Визуальный пример · Япония</figcaption>
+          </figure>
+        </section>
+        <section class="search-area" aria-label="Поиск страны">
+          <label class="search-label" for="country-query">Поиск страны</label>
+          <div class="search-box">
+            <svg
+              class="search-icon"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.7"
+              aria-hidden="true"
+            >
+              <circle cx="10.5" cy="10.5" r="6.5" />
+              <path d="m16 16 4.5 4.5" /></svg
+            ><input
+              id="country-query"
+              type="text"
+              placeholder="Например, Spain или Japan"
+              autocomplete="off"
+            /><button class="clear" aria-label="Очистить поиск" hidden>
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.7"
+                aria-hidden="true"
+              >
+                <path d="m6 6 12 12M18 6 6 18" />
+              </svg>
+            </button>
+          </div>
+          <p class="hint">Поиск начнётся после паузы</p>
+        </section>
+        <section class="content" id="content" aria-label="Результаты поиска"></section>
+      </main>
+      <footer class="footer wrap">
+        <div class="footer-links">
+          <a href="https://countries.dev">countries.dev</a><a href="../TASK.md">Задание</a>
+        </div>
+        <span class="footer-note">Макет · демоданные</span>
+      </footer>
+    </div>
+    <template id="initial-template"
+      ><div class="status initial-status"><p>Начните вводить название страны</p></div></template
+    >
+    <template id="results-template">
+      <div class="results-heading">
+        <h2>Результаты</h2>
+        <span class="count">Найдено: 1</span>
+      </div>
+      <div class="cards">
+        <button class="card" aria-label="Открыть сведения: Japan">
+          <span class="country-top"
+            ><img class="mini-flag" src="../../assets/flags/jp.svg" alt="" /><span
+              ><span class="country-name">Japan</span
+              ><span class="country-native">Япония</span></span
+            ></span
+          ><span class="facts"
+            ><span><span class="fact-label">Столица</span><strong>Tokyo</strong></span
+            ><span><span class="fact-label">Регион</span><strong>Asia</strong></span
+            ><span
+              ><span class="fact-label">Население</span><strong>123 294 513</strong></span
+            ></span
+          ><span class="details-link"
+            >Подробнее<svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.7"
+              aria-hidden="true"
+            >
+              <path d="M5 12h14m-6-6 6 6-6 6" /></svg
+          ></span>
+        </button>
+      </div>
+    </template>
+    <template id="loading-template"
+      ><div class="status" role="status">
+        <div class="status-icon"><div class="spinner" aria-hidden="true"></div></div>
+        <h2>Ищем страну…</h2>
+        <p>Собираем сведения о Japan.</p>
+      </div></template
+    >
+    <template id="empty-template"
+      ><div class="status">
+        <div class="status-icon">
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.6"
+            aria-hidden="true"
+          >
+            <circle cx="10.5" cy="10.5" r="6.5" />
+            <path d="m16 16 4.5 4.5" />
+          </svg>
+        </div>
+        <h2>Страна не найдена</h2>
+        <p>По запросу «Atlantis» ничего нет.<br />Проверьте название или попробуйте другое.</p>
+        <button class="status-button">Очистить поиск</button>
+      </div></template
+    >
+    <template id="error-template"
+      ><div class="status" role="alert">
+        <div class="status-icon error-icon">
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.6"
+            aria-hidden="true"
+          >
+            <path d="m12 3 10 18H2L12 3Z" />
+            <path d="M12 9v5m0 2v2" />
+          </svg>
+        </div>
+        <h2>Не удалось загрузить страны</h2>
+        <p>Проверьте подключение и попробуйте снова.</p>
+        <button class="status-button">Повторить</button>
+      </div></template
+    >
+    <template id="details-template"
+      ><div class="overlay">
+        <section class="dialog" role="dialog" aria-modal="true" aria-labelledby="dialog-title">
+          <div class="dialog-toolbar">
+            <span>О стране</span
+            ><button class="close" aria-label="Закрыть подробности">Закрыть</button>
+          </div>
+          <div class="dialog-cover"><img src="../../assets/flags/jp.svg" alt="Флаг Японии" /></div>
+          <h2 id="dialog-title">Japan</h2>
+          <p class="native-name">Япония · 日本</p>
+          <dl class="dialog-facts">
+            <div>
+              <dt>Столица</dt>
+              <dd>Tokyo</dd>
+            </div>
+            <div>
+              <dt>Регион</dt>
+              <dd>Asia</dd>
+            </div>
+            <div>
+              <dt>Население</dt>
+              <dd>123 294 513</dd>
+            </div>
+            <div>
+              <dt>Площадь</dt>
+              <dd>377 930 км²</dd>
+            </div>
+            <div>
+              <dt>Язык</dt>
+              <dd>Japanese</dd>
+            </div>
+            <div>
+              <dt>Валюта</dt>
+              <dd>JPY</dd>
+            </div>
+            <div class="wide">
+              <dt>Границы</dt>
+              <dd>Нет сухопутных границ</dd>
+            </div>
+          </dl>
+          <p class="dialog-note">Столица Японии — Tokyo. Страна расположена в регионе Asia.</p>
+        </section>
+      </div></template
+    >
+    <script>
+      // Static design reference: no API, timers, animation or application controller.
+      const supportedStates = ['initial', 'results', 'loading', 'empty', 'error', 'details'];
+      const requestedState = new URLSearchParams(location.search).get('state');
+      const state = supportedStates.includes(requestedState) ? requestedState : 'initial';
+      document.body.dataset.state = state;
+      document.getElementById('country-query').value =
+        state === 'initial' ? '' : state === 'empty' ? 'Atlantis' : 'Japan';
+      document.querySelector('.clear').hidden = state === 'initial';
+      const contentState = state === 'details' ? 'results' : state;
+      document
+        .getElementById('content')
+        .append(document.getElementById(`${contentState}-template`).content.cloneNode(true));
+      if (state === 'results' || state === 'details')
+        document.querySelector('figcaption').textContent = 'Japan · Япония';
+      if (state === 'details') {
+        document.querySelector('.site').inert = true;
+        document.body.append(document.getElementById('details-template').content.cloneNode(true));
+      }
+    </script>
+  </body>
+</html>
