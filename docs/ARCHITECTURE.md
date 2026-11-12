@@ -43,6 +43,8 @@ TypeScript 6.0.3 установлен локально и закреплён в 
 
 Настройки сверены с официальной документацией: [module](https://www.typescriptlang.org/tsconfig/module.html), [rootDir](https://www.typescriptlang.org/tsconfig/rootDir.html), [strict](https://www.typescriptlang.org/tsconfig/strict.html).
 
+В пункте 5 отдельно проверены реальные npm-команды: `build` запускает `tsc -p tsconfig.json` и записывает `dist/main.js`; `typecheck` добавляет `--noEmit` и сохраняет файлы `src/` и `dist/` без изменений. При контрольном запуске с отсутствующим конфигом обе команды возвращают TS5058 и код 1, выходные файлы не меняются. Скрипты передают ошибки компилятора без подавления, `noEmitOnError` остаётся включённым. Назначение параметров: [noEmit](https://www.typescriptlang.org/tsconfig/noEmit.html) и [noEmitOnError](https://www.typescriptlang.org/tsconfig/noEmitOnError.html).
+
 CSS подключён напрямую из `src/styles/`. При публикации без отдельного упаковщика нужно разместить `index.html`, скомпилированный `dist/` и `src/styles/`, сохранив относительные пути. Содержимого одного `dist/` недостаточно.
 
 ## Порядок реализации
