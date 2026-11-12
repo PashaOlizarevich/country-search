@@ -1,0 +1,14 @@
+{
+  "name": "country-search",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Учебное приложение поиска стран по заданию RS School",
+  "type": "module",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "devDependencies": {
+    "typescript": "6.0.3"
+  }
+}
