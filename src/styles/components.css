@@ -566,3 +566,36 @@
     animation: none;
   }
 }
+.search-history {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+}
+
+.search-history[hidden] {
+  display: none;
+}
+.search-history-label {
+  font-size: 0.875rem;
+}
+.history-query {
+  max-width: 100%;
+  min-height: 44px;
+  padding: 0.45rem 0.8rem;
+  border: 1px solid currentColor;
+  border-radius: 999px;
+  color: inherit;
+  background: transparent;
+  font: inherit;
+  overflow-wrap: anywhere;
+  cursor: pointer;
+}
+.history-query:hover {
+  background: rgb(255 255 255 / 65%);
+}
+.history-query:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 3px;
+}

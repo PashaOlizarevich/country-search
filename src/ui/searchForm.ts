@@ -27,6 +27,11 @@ export function createSearchForm(onInput: (query: string) => void) {
   clearButton.append(createIcon('close'));
   row.append(icon, input, clearButton);
   root.append(label, row, hint);
+  const history = element('div', 'search-history');
+  history.hidden = true;
+  history.setAttribute('role', 'group');
+  history.setAttribute('aria-label', 'Последние запросы');
+  root.append(history);
 
   function setValue(value: string): void {
     input.value = value;
@@ -44,5 +49,23 @@ export function createSearchForm(onInput: (query: string) => void) {
   root.addEventListener('submit', (event) => event.preventDefault(), options);
   input.addEventListener('input', notify, options);
   clearButton.addEventListener('click', clear, options);
-  return { root, input, clearButton, setValue, clear, destroy: () => listeners.abort() };
+  function renderHistory(queries: readonly string[], onSelect: (query: string) => void): void {
+    history.hidden = queries.length === 0;
+    history.replaceChildren(element('span', 'search-history-label', 'Недавно:'));
+    for (const query of queries) {
+      const button = element('button', 'history-query', query);
+      button.type = 'button';
+      button.addEventListener('click', () => onSelect(query));
+      history.append(button);
+    }
+  }
+  return {
+    root,
+    input,
+    clearButton,
+    setValue,
+    clear,
+    renderHistory,
+    destroy: () => listeners.abort(),
+  };
 }

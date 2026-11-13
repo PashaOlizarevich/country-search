@@ -1,5 +1,7 @@
 # Управление поиском
 
+searchHistory.ts хранит пять нормализованных запросов через переданный доступ к Storage, проверяет JSON и продолжает работу в памяти при ошибке чтения/записи. main добавляет только актуальные results/empty; кнопки истории повторяют запрос немедленно.
+
 searchState.ts описывает состояния idle, waiting, loading, empty, results и error. Каждое содержит нормализованный query; только results содержит countries, только error — errorKind и исходную error. Смена ввода сразу убирает результаты из состояния.
 
 createSearchController({ onState, request?, debounceMs?, timeoutMs? }) из searchController.ts возвращает getState(), setQuery(value), clear(), retry() и destroy(). onState получает начальный idle и последующие состояния. По умолчанию request — существующий searchCountries, debounce — 300 мс, таймаут — 10 секунд от начала запроса. Для тестов можно передать функцию запроса. onState должен быть синхронным и не бросать исключений.

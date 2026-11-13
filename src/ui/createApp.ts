@@ -55,6 +55,7 @@ export function createApp(
     root,
     input: search.input,
     setQuery: search.setValue,
+    renderHistory: search.renderHistory,
     render(state: SearchStatus, countries: readonly Country[] = []) {
       root.dataset.hasQuery = String(search.input.value.trim().length > 0);
       results.hidden = state.kind !== 'results';
