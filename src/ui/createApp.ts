@@ -49,7 +49,7 @@ export function createApp(
   const task = element('a', '', 'Задание');
   task.href = './docs/TASK.md';
   links.append(source, task);
-  footer.append(links, element('span', 'footer-note', 'Демонстрационный экран'));
+  footer.append(links, element('span', 'footer-note', 'Страны мира'));
   root.append(header, main, footer, details.dialog);
   return {
     root,

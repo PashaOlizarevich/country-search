@@ -1,28 +1,25 @@
-import { demoCountries, demoJapan } from './models/demoCountries.js';
+import { demoJapan } from './models/demoCountries.js';
+import { createSearchController } from './search/searchController.js';
 import { createApp } from './ui/createApp.js';
 
-// Temporary local preview wiring. API search, debounce and cancellation come later.
-function showDemo(query: string): void {
-  const normalized = query.trim().toLocaleLowerCase();
-  if (!normalized) {
-    app.render({ kind: 'idle' });
-    return;
-  }
-  const matches = demoCountries.filter((country) =>
-    `${country.name} ${country.nativeName ?? ''}`.toLocaleLowerCase().includes(normalized),
-  );
-  app.render(
-    matches.length ? { kind: 'results', count: matches.length } : { kind: 'empty' },
-    matches,
-  );
-}
-const app = createApp(demoJapan, { onInput: showDemo, onRetry: () => showDemo(app.input.value) });
+// The controller owns requests; UI receives only the current state.
+const app = createApp(demoJapan, {
+  onInput: (query) => controller.setQuery(query),
+  onRetry: () => controller.retry(),
+});
+const controller = createSearchController({
+  onState(state) {
+    if (state.kind === 'results')
+      app.render({ kind: 'results', count: state.countries.length }, state.countries);
+    else if (state.kind === 'error')
+      app.render({
+        kind: 'error',
+        message:
+          state.errorKind === 'timeout'
+            ? 'Сервер не ответил вовремя. Повторите поиск.'
+            : 'Не удалось загрузить страны. Проверьте подключение и повторите поиск.',
+      });
+    else app.render({ kind: state.kind });
+  },
+});
 document.body.append(app.root);
-const preview = new URLSearchParams(location.search).get('preview');
-if (preview === 'waiting' || preview === 'loading' || preview === 'empty' || preview === 'error') {
-  app.setQuery(preview === 'empty' ? 'Atlantis' : 'Japan');
-  app.render({ kind: preview });
-} else if (preview === 'results') {
-  app.setQuery('a');
-  showDemo('a');
-} else app.render({ kind: 'idle' });

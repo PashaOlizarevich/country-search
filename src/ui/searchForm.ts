@@ -18,7 +18,7 @@ export function createSearchForm(onInput: (query: string) => void) {
   input.autocomplete = 'off';
   input.spellcheck = false;
   input.setAttribute('aria-describedby', 'country-search-hint');
-  const hint = element('p', 'search-hint', 'Демоданные: Japan или Demo. Без запросов к API.');
+  const hint = element('p', 'search-hint', 'Введите название страны на английском языке.');
   hint.id = 'country-search-hint';
   const clearButton = element('button', 'clear-search');
   clearButton.type = 'button';
