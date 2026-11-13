@@ -91,6 +91,21 @@ describe('search controller', () => {
     },
   );
 
+  it('ignores an old success during the next debounce window', async () => {
+    const old = pending();
+    const request = vi.fn().mockReturnValue(old.promise);
+    const controller = createSearchController({ request, onState: vi.fn() });
+    controller.setQuery('old');
+    await vi.advanceTimersByTimeAsync(300);
+    controller.setQuery('new');
+    old.resolve([japan]);
+    await vi.advanceTimersByTimeAsync(299);
+    expect(controller.getState()).toEqual({ kind: 'waiting', query: 'new' });
+    expect(request).toHaveBeenCalledTimes(1);
+    controller.destroy();
+    expect(vi.getTimerCount()).toBe(0);
+  });
+
   it('clears pending debounce and whitespace input without a request', async () => {
     const request = vi.fn();
     const controller = createSearchController({ request, onState: vi.fn() });
