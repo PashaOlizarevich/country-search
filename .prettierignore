@@ -1,0 +1,8 @@
+node_modules/
+dist/
+coverage/
+.husky/_/
+
+# Preserve the copied task and its license verbatim.
+docs/TASK.md
+docs/TASK_LICENSE.txt
